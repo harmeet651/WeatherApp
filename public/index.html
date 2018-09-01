@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Weather App</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale = 1.0, 
+          maximum-scale=1.0, user-scalable=no" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC00xSk8OLLyPTwJPMCTxjtOCOYrX-dW6A&libraries=places"></script>
+  <link rel="stylesheet" href="style.css" type="text/css">
+</head>
+<body onload="getLocation()">
+  <div id="navbar">
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid" >
+    <div class="navbar-header">
+      <a class="navbar-brand" href=""><img src="http://icons.iconarchive.com/icons/alecive/flatwoken/48/Apps-Weather-icon.png" ></img></a>
+      <a class="navbar-brand" href=""><h4>Weather App</h4></a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="">Home</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+</div>
+<div id="FrontImage"></div>
+<div id="animationDiv">
+<div id="cloud">
+  <img src="cloud.png">
+</div>
+<div id="cloud2">
+  <img src="cloud.png">
+</div>
+<div id="cloud3">
+  <img src="cloud.png">
+</div>
+<div id="cloud4">
+  <img src="cloud.png">
+</div>
+<div id="cloud5">
+  <img src="cloud.png">
+</div>
+<div id="cloud6">
+  <img src="cloud.png">
+</div>
+<div id="cloud7">
+  <img src="cloud.png">
+</div>
+<div id="cloud8">
+  <img src="cloud.png">
+</div>
+<div id="plane">
+  <img src="plane.jpg">
+</div>
+</div>
+<div id="locWalaDiv"></div>
+<div id="stateCity" class="col-md-6"><h3>Search for Weather condiitons of any State, City or Country..</h3></div>
+  <div id="enterPlaceDiv">
+  <div class="form-group">
+    <input type="input" class="form-control" onclick="autoEkhor()" id="placeEnter" aria-describedby="place" placeholder="Enter a Place">
+  </div>
+  <div class="form-group row">
+     <button type="button" class="btn btn-info" id="search" onclick="locTwo()">
+      <span class="glyphicon glyphicon-search"></span> Search
+    </button>
+    <button type="reset" class="btn btn-light" value="clear" id="myClear" onclick="document.getElementById('placeEnter').value = ''">
+      <span class="glyphicon glyphicon-search"></span> Clear
+    </button>
+  </div>
+</div>
+<div id="secondDiv" style="width: 300px; height: 400px;"></div>
+<div class="content" id="textThirdDiv">
+</div>
+<div id="enterKey"></div>
+<div id="fourthDivForForcast"><div id="forcastTable"></div>
+</div>
+<script type="text/javascript">
+
+  window.onscroll = function() {myFunction()};
+var navbar = document.getElementById("navbar");
+var sticky = navbar.offsetTop;
+
+function myFunction() {
+  if (window.pageYOffset >= sticky) {
+    navbar.classList.add("sticky")
+  } else {
+    navbar.classList.remove("sticky");
+  }
+}
+
+  function autoEkhor(){
+        console.log("inside auto one");
+        var inputa = document.getElementById("placeEnter");
+        var autocomplete = new google.maps.places.Autocomplete(inputa);
+      }
+
+  var lat;
+  var lon;
+
+var x = document.getElementById("locWalaDiv");
+
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } 
+    else { 
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+
+function showPosition(position) {
+  lat=position.coords.latitude;
+  lon=position.coords.longitude;
+  console.log(lat);
+    console.log(lon);
+  
+       $.ajax(
+              {
+                url: "/allData?lat="+lat+"&lon="+lon,
+                type: "GET",
+
+                success: function(data)
+                {
+                    var allData = data;
+                    console.log('success111111');
+                    console.log(allData);
+                    if(allData.cod=="404")
+                      { 
+                        console.log("hshdhshdhd");
+                        html_text="";
+                        html_text+="<div class=\"table-responsive\">";
+                        html_text+="<div class=\"container-fluid\">";
+                        html_text+="<table class=\"text-center\" id=\"noRecordTable\" align=\"center\"><tr><td><h2>NO RECORDS HAVE BEEN FOUND</h2></td></tr>";
+                        html_text+="</table>"
+                        html_text+="</div>";
+                         document.getElementById("locWalaDiv").innerHTML=html_text;
+                      }
+                       else
+                       { 
+                        mainTable(allData,lat,lon);
+                       }
+                }
+              })
+     }
+
+function mid(allData,lat,lon){
+  $.ajax(
+              {
+                url: "/fullWeath?lat="+lat+"&lon="+lon,
+                type: "GET",
+
+                success: function(data)
+                {
+                    var forcast = data;
+                    console.log('success3333');
+                    console.log(forcast);
+                    fullWeather(forcast,allData,lat,lon);
+                }
+              })
+}
+
+function locTwo()
+{
+  if(document.getElementById("placeEnter").value=="" || document.getElementById("placeEnter").value==undefined)
+    {
+      document.getElementById("placeEnter").style.borderColor="red";
+    }
+else
+  {
+    var location=$("#placeEnter").val();
+    $.ajax(
+                {
+                  url: "/apiTwo?name="+location,
+                  type: "GET",
+
+                  success: function(data)
+                  {
+                      var apiTwo = data;
+                      console.log('success22222');
+                      console.log(apiTwo);
+                      //table2(apiTwo);
+                      if(apiTwo.cod=="404")
+                        { 
+                          console.log("hshdhshdhd");
+                          html_text="";
+                          html_text+="<div class=\"table-responsive\">";
+                          html_text+="<div class=\"container-fluid\">";
+                          html_text+="<table class=\"text-center\" id=\"noRecordTable\" align=\"center\"><tr><td><h2>Please enter a city name, state or country.</h2></td></tr>";
+                          html_text+="</table>"
+                          html_text+="</div>";
+                           document.getElementById("secondDiv").innerHTML=html_text;
+                        }
+                        else{
+                          table2(apiTwo);
+                        }
+                  }
+                })
+  }
+}
+  function mainTable(allData,lat,lon)
+  {
+      html_text="";
+      console.log(allData);
+      console.log(lat);
+      console.log(lon);
+      var objFortempmAIN= allData.main;
+      var nameOfPlaceDefault=allData.name;
+      var tempratureDef=objFortempmAIN.temp;
+      var fahrenheitDef=((tempratureDef*(9/5))-459.67);
+      var intFinalDefTemp=Math.floor(fahrenheitDef);
+      console.log(tempratureDef);
+      var celsius=Math.floor((intFinalDefTemp-32)*(5/9));
+      html_text+="<div class=\"input-group input-group-lg\">";
+      html_text+="<div class=\"container-fluid\" id=\"placeTempDef\">";
+      var iconcode = allData.weather[0].icon;
+      var desc=allData.weather[0].main;
+      var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
+      html_text+="<div id=\"textForLoc\" ><h4>"+nameOfPlaceDefault+"</h4></div>";
+       html_text+="<div id=\"alignTextOne\"><h4> \ Weather: \ "+desc+"</h4></div><div id=\"alignImage1\"><image src="+iconurl+" alt=\"\"></div>";
+      html_text+="<div id=\"textForTemp\"><h4> "+intFinalDefTemp+" \ Fahrenheit\ | "+celsius+" \ Celsius\ </h4></div>";
+       html_text+="<button type=\"button\" id=\"seeMore1\" class=\"btn btn-info\">Forcast</button>";
+      html_text+="</div>"; 
+      html_text+="</div>"; 
+         document.getElementById("locWalaDiv").innerHTML=html_text;
+          $("#seeMore1").click(function(){
+            mid(allData,lat,lon);
+        });
+  }
+  
+  function table2(allData)
+  {  
+      document.getElementById("enterKey").innerHTML="";
+      var lat= allData.coord.lat;
+      var lon= allData.coord.lon;
+      var objFortempmAIN= allData.main;
+      var nameOfPlaceDefault=allData.name;
+      var tempratureDef=objFortempmAIN.temp;
+      var fahrenheitDef=((tempratureDef*(9/5))-459.67);
+      var intFinalDefTemp=Math.floor(fahrenheitDef);
+      console.log(tempratureDef);
+      var celsius=Math.floor((intFinalDefTemp-32)*(5/9));
+      html_text="";
+      html_text+="<div class=\"input-group input-group-lg\">"; 
+      html_text+="<div class=\"container-fluid\" id=\"placeTempDef2\">";
+      var iconcode = allData.weather[0].icon;
+      var desc=allData.weather[0].main;
+      var iconurl = "http://openweathermap.org/img/w/" + iconcode + ".png";
+      html_text+="<div id=\"textForLoc2\"><h4>"+nameOfPlaceDefault+"</h4></div>";
+       html_text+="<div id=\"alignText2\"> <h4> \ Weather: \ "+desc+"</h4></div><div id=\"alignImage2\"><image src="+iconurl+" alt=\"\"></div>";
+      html_text+="<div id=\"textForTemp2\"><h4> "+intFinalDefTemp+" \ Fahrenheit\  | "+celsius+" \ Celsius\ </h4></div>";
+      html_text+="<button type=\"button\" id=\"seeMore2\" class=\"btn btn-info\">Forcast</button>";
+      html_text+="</div>"; 
+      html_text+="</div>"; 
+         document.getElementById("secondDiv").innerHTML=html_text;
+         $("#seeMore2").click(function(){
+          mid(allData,lat,lon);
+        });
+  }
+
+  function fullWeather(forcast,allData,lat,lon)
+  {
+      document.getElementById("FrontImage").style.display="none";
+      document.getElementById("locWalaDiv").innerHTML="";
+      document.getElementById("textThirdDiv").innerHTML="";
+      document.getElementById("enterPlaceDiv").innerHTML=""; 
+      document.getElementById("secondDiv").innerHTML="";
+      document.getElementById("animationDiv").style.display="none";
+      document.getElementById("fourthDivForForcast").style.display="block";
+      
+      var nameOfPlaceDefault=forcast.city;
+      var nameCity=nameOfPlaceDefault.name;
+      console.log(nameCity);
+      var tableRow=forcast.list;
+      html_text="";
+      html_text+="<div class=\"table-responsive\">";
+      html_text+="<div id=\"nameCity\"><button type=\"button\" class=\"btn btn-light col-sm-1 col-md-offset-5\" id=\"previous\">Previous</button><h4>"+nameCity+"</h4></div>";  
+      html_text+="<table class=\"table table-hover\" align=\"center\">";
+      html_text+="<tr ><td>#</td><td>Date and Time</td><td>Fahrenheit and Celsius</td><td>Description</td><td>Icon</td></tr>";
+      var a=tableRow[0].main.temp;
+      console.log(a);
+      for(w=0;w<tableRow.length;w++)
+      {
+        curObj= tableRow[w];
+        var keysVar=Object.keys(curObj);
+                  for(s=0;s<keysVar.length;s++)
+                  {
+                    if(keysVar[s]=="dt_txt"){
+                        date=curObj[keysVar[s]];
+                    }
+                    if(keysVar[s]=="main"){
+                        mainB=curObj[keysVar[s]];
+                        temprature=mainB.temp;
+                        var fahrenheitDef=((temprature*(9/5))-459.67);
+                        var intFinalDefTemp=Math.floor(fahrenheitDef);
+                        var celsius=Math.floor((intFinalDefTemp-32)*(5/9));
+                    }
+                    if(keysVar[s]=="weather"){
+                        weather=curObj[keysVar[s]];
+                        main2=weather[0];
+                        descrip=main2.description;
+                    }
+                    if(keysVar[s]=="weather"){
+                        icon=curObj[keysVar[s]];
+                        icon2=icon[0];
+                        image2Icon=main2.icon;
+                        var iconurl = "http://openweathermap.org/img/w/" + image2Icon + ".png";
+                    }
+                  }             
+                  html_text+="<div><tr id=\"yeHetable\"><td>"+(w+1)+"</td><td>"+date+"</td><td>"+intFinalDefTemp+"&nbsp;&nbsp;&nbsp;&nbsp;"+celsius+"</td><td>"+descrip+"</td><td><div id=\"iconForcast\"><image src="+iconurl+" alt=\"\"></div></td></tr></div>";
+       }
+       html_text+="</table>";
+       html_text+="</div>";
+       
+       document.getElementById("fourthDivForForcast").style.backgroundColor="#1b2932";
+       document.getElementById("forcastTable").style.backgroundColor="#24A198";
+       document.getElementById("forcastTable").innerHTML=html_text;
+
+       $("#previous").click(function(){
+         location.reload();
+   });
+  }
+</script>
+</body>
+</html>

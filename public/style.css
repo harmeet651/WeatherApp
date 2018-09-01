@@ -1,0 +1,299 @@
+body{background-color:#ECF0F1;}
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+.navbar {
+    position: relative;
+    min-height: 50px;
+    margin-bottom: 20px;
+    margin-left: 70px;
+    margin-right: 70px;
+    border: 0px solid transparent;
+    border-radius:0px;  
+}
+.navbar-brand {
+    float: left;
+    height:auto;
+    padding: 10px 10px;
+    font-size: 18px;
+    line-height: 20px;
+}
+.navbar-brand>img{ width:80%;}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: #F39C12;
+}
+.navbar-inverse .navbar-nav > li > a:hover {
+   background-color: #009688;
+}
+#FrontImage{
+    background-image: url("sky.jpg");
+    width: 100%;
+    margin: 0px;
+    height: 780px;
+    overflow: hidden;
+    position: relative;
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+#locWalaDiv {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 340px;
+}
+#cloud img{
+    position: absolute;
+    top: 10%;
+    left: 0%;
+    width: 200px;
+    height: 150px;
+    animation-name: windBlow;
+    opacity: 0.7;
+    animation-duration: 160s;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+}
+#cloud2 img{
+    position: absolute;
+    top: 20%;
+    left: 10%;
+    width: 150px;
+    height: 100px;
+    opacity: 0.3;
+    animation-name: windBlow;
+    animation-duration: 250s;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+}
+#cloud3 img{
+    position: absolute;
+    top: 40%;
+    left: 10%;
+    width: 200px;
+    height: 150px;
+    opacity: 0.3;
+    animation-name: windBlow;
+    animation-duration: 160s;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+}
+#cloud4 img{
+    position: absolute;
+    top: 70%;
+    left: 0%;
+    width: 300px;
+    height: 250px;
+    opacity: 0.3;
+    animation-name: windBlow;
+    animation-duration: 250s;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+}
+#cloud5 img{
+    position: absolute;
+    top: 10%;
+    left: 60%;
+    width: 350px;
+    height: 300px;
+    opacity: 0.3;
+    animation-name: windBlow3;
+    animation-duration: 160s;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+}
+#cloud6 img{
+    position: absolute;
+    top: 70%;
+    left: 70%;
+    width: 300px;
+    height: 250px;
+    opacity: 0.3;
+    animation-name: windBlow3;
+    animation-duration: 150s;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+}
+#plane img{
+    position: absolute;
+    top: 25%;
+    left: 13%;
+    width: 80px;
+    height: 40px;
+    opacity: 0.4;
+    animation-name: windBlow;
+    animation-duration: 50s;
+    animation-iteration-count: infinite;
+}
+@keyframes windBlow{
+    from{transform: translateX(-285px)}
+    to{transform: translateX(1400px)}
+}
+@keyframes windBlow3{
+    from{transform: translateX(0px)}
+    to{transform: translateX(1400px)}
+}
+#cloud7 img{
+    position: absolute;
+    top: 15%;
+    left: 0%;
+    width: 150px;
+    height: 100px;
+    opacity: 0.3;
+    animation-name: windBlow2;
+    animation-duration: 200s;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+}
+
+#cloud8 img{
+    position: absolute;
+    top: 70%;
+    left: 0%;
+    width: 150px;
+    height: 100px;
+    opacity: 0.3;
+    animation-name: windBlow2;
+    animation-duration: 250s;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+}
+@keyframes windBlow2{
+    from{transform: translateX(-185px)}
+    to{transform: translateX(1200px)}
+}
+#enterPlaceDiv {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+#secondDiv {
+    position: absolute;
+    top: 160%;
+    left: 54%;
+    transform: translate(-60%, -80%);
+}
+#placeEnter{
+    max-width: 220px;
+}
+#search{
+    margin-left: 20px;
+}
+#myClear{
+    margin-left: 20px;
+}
+.header {
+  background-color: #f1f1f1;
+  padding: 30px;
+  text-align: center;
+}
+#navbar {
+  overflow: hidden;
+  background-color: rgb(0, 102, 102);
+  z-index: 1000;
+}
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+.sticky + .content {
+  padding-top: 60px;
+}
+
+#placeTempDef{
+    margin-left: 10px;
+}
+#alignTextOne{
+    float: left;
+    width: 250px;
+}
+#textForLoc h4{
+    font-size: 50px;
+}
+#alignImage1{
+    margin-top: 10px;
+}
+#textForTemp{
+    width: 350px;
+}
+#tempCel{
+    font-size: 40px;
+}
+#seeMore1{
+    margin-top: 10px;
+}
+
+#textForLoc2{
+    height: 40px;
+}
+#alignText2{
+    float: left;
+    width: 215px;
+}
+#textForTemp2{
+    float: left;
+    width: 350px;
+}
+#textForTemp2{
+    float: left;
+}
+#tempCel2{
+    width: 240px;
+    height: 50px;
+}
+#fourthDivForForcast{
+    width: 1385px;
+}
+#forcastTable{
+    width: 1000px;
+    position: absolute;
+    top: 15%;
+    left: 19%;
+    text-align: center;
+    margin-top: 76px;
+}
+#iconForcast{
+    width: 50px;
+}
+#nameCity{
+    text-align: center;
+}
+#previous{
+   width: 80px;
+   margin-right: 0px;
+   margin-left: 0px;
+}
+#enterKey{
+    position: absolute;
+    top: 65%;
+    left: 70%;
+    transform: translate(-60%, -80%);
+}
+#stateCity{
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 850px;
+    text-align: center;
+    color: #FFFFFF;
+}
+h4 {
+  font-size: 4.0vh;
+}
+p {
+  font-size: 2vmin;
+}
+@media only screen and (max-width: 600px) {
+     #forcastTable{
+        max-width: 370px;
+        left: 5%;
+    }
+}
