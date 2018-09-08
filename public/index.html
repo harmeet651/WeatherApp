@@ -76,7 +76,7 @@
 <div class="content" id="textThirdDiv">
 </div>
 <div id="enterKey"></div>
-<div id="fourthDivForForcast"><div id="forcastTable"></div>
+<div id="fourthDivForForecast"><div id="forecastTable"></div>
 </div>
 <script type="text/javascript">
 
@@ -155,10 +155,10 @@ function mid(allData,lat,lon){
 
                 success: function(data)
                 {
-                    var forcast = data;
+                    var forecast = data;
                     console.log('success3333');
-                    console.log(forcast);
-                    fullWeather(forcast,allData,lat,lon);
+                    console.log(forecast);
+                    fullWeather(forecast,allData,lat,lon);
                 }
               })
 }
@@ -222,7 +222,7 @@ else
       html_text+="<div id=\"textForLoc\" ><h4>"+nameOfPlaceDefault+"</h4></div>";
        html_text+="<div id=\"alignTextOne\"><h4> \ Weather: \ "+desc+"</h4></div><div id=\"alignImage1\"><image src="+iconurl+" alt=\"\"></div>";
       html_text+="<div id=\"textForTemp\"><h4> "+intFinalDefTemp+" \ Fahrenheit\ | "+celsius+" \ Celsius\ </h4></div>";
-       html_text+="<button type=\"button\" id=\"seeMore1\" class=\"btn btn-info\">Forcast</button>";
+       html_text+="<button type=\"button\" id=\"seeMore1\" class=\"btn btn-info\">Forecast</button>";
       html_text+="</div>"; 
       html_text+="</div>"; 
          document.getElementById("locWalaDiv").innerHTML=html_text;
@@ -252,7 +252,7 @@ else
       html_text+="<div id=\"textForLoc2\"><h4>"+nameOfPlaceDefault+"</h4></div>";
        html_text+="<div id=\"alignText2\"> <h4> \ Weather: \ "+desc+"</h4></div><div id=\"alignImage2\"><image src="+iconurl+" alt=\"\"></div>";
       html_text+="<div id=\"textForTemp2\"><h4> "+intFinalDefTemp+" \ Fahrenheit\  | "+celsius+" \ Celsius\ </h4></div>";
-      html_text+="<button type=\"button\" id=\"seeMore2\" class=\"btn btn-info\">Forcast</button>";
+      html_text+="<button type=\"button\" id=\"seeMore2\" class=\"btn btn-info\">Forecast</button>";
       html_text+="</div>"; 
       html_text+="</div>"; 
          document.getElementById("secondDiv").innerHTML=html_text;
@@ -261,7 +261,7 @@ else
         });
   }
 
-  function fullWeather(forcast,allData,lat,lon)
+  function fullWeather(forecast,allData,lat,lon)
   {
       document.getElementById("FrontImage").style.display="none";
       document.getElementById("locWalaDiv").innerHTML="";
@@ -269,12 +269,12 @@ else
       document.getElementById("enterPlaceDiv").innerHTML=""; 
       document.getElementById("secondDiv").innerHTML="";
       document.getElementById("animationDiv").style.display="none";
-      document.getElementById("fourthDivForForcast").style.display="block";
+      document.getElementById("fourthDivForForecast").style.display="block";
       
-      var nameOfPlaceDefault=forcast.city;
+      var nameOfPlaceDefault=forecast.city;
       var nameCity=nameOfPlaceDefault.name;
       console.log(nameCity);
-      var tableRow=forcast.list;
+      var tableRow=forecast.list;
       html_text="";
       html_text+="<div class=\"table-responsive\">";
       html_text+="<div id=\"nameCity\"><button type=\"button\" class=\"btn btn-light col-sm-1 col-md-offset-5\" id=\"previous\">Previous</button><h4>"+nameCity+"</h4></div>";  
@@ -310,14 +310,14 @@ else
                         var iconurl = "http://openweathermap.org/img/w/" + image2Icon + ".png";
                     }
                   }             
-                  html_text+="<div><tr id=\"yeHetable\"><td>"+(w+1)+"</td><td>"+date+"</td><td>"+intFinalDefTemp+"&nbsp;&nbsp;&nbsp;&nbsp;"+celsius+"</td><td>"+descrip+"</td><td><div id=\"iconForcast\"><image src="+iconurl+" alt=\"\"></div></td></tr></div>";
+                  html_text+="<div><tr id=\"yeHetable\"><td>"+(w+1)+"</td><td>"+date+"</td><td>"+intFinalDefTemp+"&nbsp;&nbsp;&nbsp;&nbsp;"+celsius+"</td><td>"+descrip+"</td><td><div id=\"iconForecast\"><image src="+iconurl+" alt=\"\"></div></td></tr></div>";
        }
        html_text+="</table>";
        html_text+="</div>";
        
-       document.getElementById("fourthDivForForcast").style.backgroundColor="#1b2932";
-       document.getElementById("forcastTable").style.backgroundColor="#24A198";
-       document.getElementById("forcastTable").innerHTML=html_text;
+       document.getElementById("fourthDivForForecast").style.backgroundColor="#1b2932";
+       document.getElementById("forecastTable").style.backgroundColor="#24A198";
+       document.getElementById("forecastTable").innerHTML=html_text;
 
        $("#previous").click(function(){
          location.reload();
