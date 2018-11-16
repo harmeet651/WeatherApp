@@ -84,11 +84,11 @@ app.get("/fullWeath", function (req, res) {
 	var temp = req.query;
 	var data = temp.newData;
 
-	nasaApi = "http://api.openweathermap.org/data/2.5/forecast?lat=" + req.query.lat + "&lon=" + req.query.lon + "&appid=ba6ef401f6d70d1c7f50509ad91be1d0";
+	fullWeather = "http://api.openweathermap.org/data/2.5/forecast?lat=" + req.query.lat + "&lon=" + req.query.lon + "&appid=ba6ef401f6d70d1c7f50509ad91be1d0";
 
-	var urlNew3 = nasaApi.replace(/ /g, '+');
-	console.log(nasaApi);
-	var urlNew3 = encodeURI(nasaApi);
+	var urlNew3 = fullWeather.replace(/ /g, '+');
+	console.log(fullWeather);
+	var urlNew3 = encodeURI(fullWeather);
 	request.get({
 		url: urlNew3,
 		json: true,
@@ -107,6 +107,30 @@ app.get("/fullWeath", function (req, res) {
 		}
 	});
 
+});
+
+app.get("/cityData", function(req, res){
+	majorCityWeather = "http://dataservice.accuweather.com/currentconditions/v1/topcities/100?apikey=JXfluINrUxXR7xJ9sD3NFpCGEaAYt6J8";
+
+	var urlForCities = majorCityWeather.replace(/ /g, '+');
+	console.log(urlForCities); 
+	var city = encodeURI(urlForCities);
+	request.get({
+			url: city,
+			json: true,
+			headers: {'user-Agent' : 'request'}
+		},(err, response, data) => {
+			if(err){
+				console.log('Error:', err);
+			}
+			else if(res.statusCode!==200){
+				console.log('Status:', response.statusCode);
+			} else {
+				console.log(data);
+				res.setHeader('content-type', 'application/json');
+				res.json(data);
+			}
+		});
 });
 
 //start server
