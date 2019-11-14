@@ -23,7 +23,7 @@ app.get("/allData", function (req, res) {
 	var temp = req.query;
 	var data = temp.newData;
 
-	urlNp = "http://api.openweathermap.org/data/2.5/weather?lat=" + req.query.lat + "&lon=" + req.query.lon + "&appid=ba6ef401f6d70d1c7f50509ad91be1d0";
+	urlNp = "http://api.openweathermap.org/data/2.5/weather?lat=" + req.query.lat + "&lon=" + req.query.lon + "&appid="+process.env.ENV_VARIABLE;
 
 	var urlNew = urlNp.replace(/ /g, '+');
 	console.log(urlNp);
@@ -54,7 +54,7 @@ app.get("/apiTwo", function (req, res) {
 	var temp = req.query;
 	var data = temp.newData;
 
-	urlNp2 = "http://api.openweathermap.org/data/2.5/weather?q=" + req.query.name + "&appid=ba6ef401f6d70d1c7f50509ad91be1d0";
+	urlNp2 = "http://api.openweathermap.org/data/2.5/weather?q=" + req.query.name + "&appid="+process.env.ENV_VARIABLE;
 
 	var urlNew2 = urlNp2.replace(/ /g, '+');
 	console.log(urlNp2);
@@ -84,7 +84,7 @@ app.get("/fullWeath", function (req, res) {
 	var temp = req.query;
 	var data = temp.newData;
 
-	fullWeather = "http://api.openweathermap.org/data/2.5/forecast?lat=" + req.query.lat + "&lon=" + req.query.lon + "&appid=ba6ef401f6d70d1c7f50509ad91be1d0";
+	fullWeather = "http://api.openweathermap.org/data/2.5/forecast?lat=" + req.query.lat + "&lon=" + req.query.lon + "&appid="+process.env.ENV_VARIABLE;
 
 	var urlNew3 = fullWeather.replace(/ /g, '+');
 	console.log(fullWeather);
@@ -110,7 +110,7 @@ app.get("/fullWeath", function (req, res) {
 });
 
 app.get("/cityData", function(req, res){
-	majorCityWeather = "http://dataservice.accuweather.com/currentconditions/v1/topcities/100?apikey=JXfluINrUxXR7xJ9sD3NFpCGEaAYt6J8";
+	majorCityWeather = "http://dataservice.accuweather.com/currentconditions/v1/topcities/100?apikey="+process.env.ENV_VARIABLE;
 
 	var urlForCities = majorCityWeather.replace(/ /g, '+');
 	console.log(urlForCities); 
